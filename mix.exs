@@ -1,9 +1,9 @@
-defmodule Helloworld.MixProject do
+defmodule TodoistClone.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :helloworld,
+      app: :TodoistClone,
       version: "0.1.0",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -18,7 +18,7 @@ defmodule Helloworld.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Helloworld.Application, []},
+      mod: {TodoistClone.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -75,10 +75,10 @@ defmodule Helloworld.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind helloworld", "esbuild helloworld"],
+      "assets.build": ["tailwind TodoistClone", "esbuild TodoistClone"],
       "assets.deploy": [
-        "tailwind helloworld --minify",
-        "esbuild helloworld --minify",
+        "tailwind TodoistClone --minify",
+        "esbuild TodoistClone --minify",
         "phx.digest"
       ]
     ]

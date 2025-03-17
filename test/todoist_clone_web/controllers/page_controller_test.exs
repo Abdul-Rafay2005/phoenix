@@ -1,5 +1,5 @@
-defmodule HelloworldWeb.PageControllerTest do
-  use HelloworldWeb.ConnCase
+defmodule TodoistCloneWeb.PageControllerTest do
+  use TodoistCloneWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")

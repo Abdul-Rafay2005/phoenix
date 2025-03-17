@@ -1,5 +1,5 @@
-defmodule HelloworldWeb.PageController do
-  use HelloworldWeb, :controller
+defmodule TodoistCloneWeb.PageController do
+  use TodoistCloneWeb, :controller
 
   def home(conn, _params) do
     # The home page is often custom made,

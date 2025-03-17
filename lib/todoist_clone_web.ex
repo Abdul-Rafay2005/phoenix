@@ -1,12 +1,13 @@
-defmodule HelloworldWeb do
+defmodule TodoistCloneWeb do
+
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, components, channels, and so on.
 
   This can be used in your application as:
 
-      use HelloworldWeb, :controller
-      use HelloworldWeb, :html
+      use TodoistClone, :controller
+      use TodoistClone, :html
 
   The definitions below will be executed for every controller,
   component, etc, so keep them short and clean, focused
@@ -40,10 +41,10 @@ defmodule HelloworldWeb do
     quote do
       use Phoenix.Controller,
         formats: [:html, :json],
-        layouts: [html: HelloworldWeb.Layouts]
+        layouts: [html: TodoistCloneWeb.Layouts]
 
       import Plug.Conn
-      import HelloworldWeb.Gettext
+      import TodoistCloneWeb.Gettext
 
       unquote(verified_routes())
     end
@@ -52,7 +53,7 @@ defmodule HelloworldWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {HelloworldWeb.Layouts, :app}
+        layout: {TodoistCloneWeb.Layouts, :app}
 
       unquote(html_helpers())
     end
@@ -84,8 +85,8 @@ defmodule HelloworldWeb do
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
-      import HelloworldWeb.CoreComponents
-      import HelloworldWeb.Gettext
+      import TodoistCloneWeb.CoreComponents
+      import TodoistCloneWeb.Gettext
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
@@ -98,9 +99,9 @@ defmodule HelloworldWeb do
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: HelloworldWeb.Endpoint,
-        router: HelloworldWeb.Router,
-        statics: HelloworldWeb.static_paths()
+        endpoint: TodoistCloneWeb.Endpoint,
+        router: TodoistCloneWeb.Router,
+        statics: TodoistCloneWeb.static_paths()
     end
   end
 

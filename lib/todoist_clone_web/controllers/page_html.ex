@@ -1,10 +1,10 @@
-defmodule HelloworldWeb.PageHTML do
+defmodule TodoistCloneWeb.PageHTML do
   @moduledoc """
   This module contains pages rendered by PageController.
 
   See the `page_html` directory for all templates available.
   """
-  use HelloworldWeb, :html
+  use TodoistCloneWeb, :html
 
   embed_templates "page_html/*"
 end

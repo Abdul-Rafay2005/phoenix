@@ -1,2 +1,2 @@
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(Helloworld.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(TodoistClone.Repo, :manual)
