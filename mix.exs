@@ -18,7 +18,7 @@ defmodule TodoistClone.MixProject do
       mod: {TodoistClone.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
-  end
+  end 
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
