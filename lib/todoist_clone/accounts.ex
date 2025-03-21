@@ -350,4 +350,4 @@ defmodule TodoistClone.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
-end
+end 
