@@ -15,6 +15,8 @@ defmodule TodoistCloneWeb.CoreComponents do
   Icons are provided by [heroicons](https://heroicons.com). See `icon/1` for usage.
   """
   use Phoenix.Component
+  
+
 
   alias Phoenix.LiveView.JS
   import TodoistCloneWeb.Gettext

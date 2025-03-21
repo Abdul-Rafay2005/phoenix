@@ -3,7 +3,7 @@ defmodule TodoistClone.MixProject do
 
   def project do
     [
-      app: :TodoistClone,
+      app: :todoist_clone,
       version: "0.1.0",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -13,9 +13,6 @@ defmodule TodoistClone.MixProject do
     ]
   end
 
-  # Configuration for the OTP application.
-  #
-  # Type `mix help compile.app` for more information.
   def application do
     [
       mod: {TodoistClone.Application, []},
@@ -23,14 +20,10 @@ defmodule TodoistClone.MixProject do
     ]
   end
 
-  # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
-  # Specifies your project dependencies.
-  #
-  # Type `mix help deps` for examples and options.
-  defp deps do
+defp deps do
     [
       {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.5"},
@@ -51,23 +44,22 @@ defmodule TodoistClone.MixProject do
        app: false,
        compile: false,
        depth: 1},
-      {:swoosh, "~> 1.5"},
-      {:finch, "~> 0.13"},
-      {:telemetry_metrics, "~> 1.0"},
+       {:swoosh, "~> 1.5"},
+       {:finch, "~> 0.13"},
+       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:bandit, "~> 1.5"},
+      {:pbkdf2_elixir, "~> 2.0"},
     ]
   end
 
-  # Aliases are shortcuts or tasks specific to the current project.
-  # For example, to install project dependencies and perform other setup tasks, run:
-  #
-  #     $ mix setup
-  #
-  # See the documentation for `Mix` for more info on aliases.
+
+
+
   defp aliases do
     [
       setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
@@ -75,10 +67,10 @@ defmodule TodoistClone.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind TodoistClone", "esbuild TodoistClone"],
+      "assets.build": ["tailwind todoist_clone", "esbuild todoist_clone"],
       "assets.deploy": [
-        "tailwind TodoistClone --minify",
-        "esbuild TodoistClone --minify",
+        "tailwind todoist_clone --minify",
+        "esbuild todoist_clone --minify",
         "phx.digest"
       ]
     ]
