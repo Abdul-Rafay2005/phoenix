@@ -30,17 +30,17 @@ config :esbuild,
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
-# Configure tailwind (the version is required)
-config :tailwind,
-  version: "3.4.3",
-  TodoistClone: [
-    args: ~w(
-      --config=tailwind.config.js
-      --input=css/app.css
-      --output=../priv/static/assets/app.css
-    ),
-    cd: Path.expand("../assets", __DIR__)
-  ]
+
+
+config :tailwind, :todoist_clone,
+  version: "4.0.9",
+  args: ~w(
+    --config=assets/tailwind.config.js
+    --input=assets/css/app.css
+    --output=priv/static/assets/app.css
+  ),
+  cd: Path.expand("../assets", __DIR__)
+
 
 # Configures Elixir's Logger
 config :logger, :console,
