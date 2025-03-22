@@ -32,14 +32,17 @@ config :esbuild,
 
 
 
-config :tailwind, :todoist_clone,
+config :tailwind,
   version: "4.0.9",
-  args: ~w(
-    --config=assets/tailwind.config.js
-    --input=assets/css/app.css
-    --output=priv/static/assets/app.css
-  ),
-  cd: Path.expand("../assets", __DIR__)
+    todoist_clone: [
+    args: ~w(
+      --config=tailwind.config.js
+      --input=css/app.css
+      --output=../priv/static/assets/app.css
+    ),
+    cd: Path.expand("../assets", __DIR__)
+  ]
+
 
 
 # Configures Elixir's Logger
