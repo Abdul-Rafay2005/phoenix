@@ -65,6 +65,16 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  config :helloworld, Helloworld.Mailer,
+    adapter: Swoosh.Adapters.SMTP,
+    relay: "smtp-relay.brevo.com",
+    username: System.get_env("BREVO_USERNAME"),
+    password: System.get_env("BREVO_SMTP_PASSWORD"),
+    ssl: false,
+    tls: :always,
+    port: 587,
+    auth: :always
+
   # ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key

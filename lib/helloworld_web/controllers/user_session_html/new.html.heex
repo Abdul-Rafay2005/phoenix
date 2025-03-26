@@ -1,0 +1,69 @@
+<div class="flex min-h-screen pt-13 justify-center bg-white px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md space-y-6">
+      <!-- Logo -->
+      <div class="text-center">
+        <h2 class="mt-6 text-4xl font-bold tracking-tight text-gray-900">
+          Log in
+        </h2>
+      </div>
+  
+      <!-- Social Login Buttons -->
+      <div class="space-y-3">
+        <button
+          class="w-full flex items-center justify-center gap-2 border font-bold border-gray-300 rounded-md py-2 px-4 hover:bg-gray-50">
+          <img src="https://th.bing.com/th/id/OIP.EhTMbGiYfYzQnWLgjZaoJAHaHa?rs=1&pid=ImgDetMain" alt="Google"
+            class="h-5 w-5" />
+          Continue with Google
+        </button>
+        <button
+          class="w-full flex items-center justify-center gap-2 border border-gray-300 font-bold rounded-md py-2 px-4 hover:bg-gray-50">
+          <img src="https://www.freeiconspng.com/uploads/facebook-png-icon-follow-us-facebook-1.png" alt="Facebook"
+            class="h-5 w-5" />
+          Continue with Facebook
+        </button>
+      </div>
+  
+      <!-- Or divider -->
+      <div class="flex items-center justify-center">
+        <span class="text-sm text-gray-500">or</span>
+      </div>
+  
+      <%= if @error_message do %>
+        <div class="text-red-600 text-sm text-center">
+          <%= @error_message %>
+        </div>
+        <% end %>
+  
+          <!-- Form -->
+          <.simple_form :let={f} for={@conn.params["user"]} as={:user} action={~p"/users/log_in"} class="space-y-4">
+            <.input field={f[:email]} type="email" label="Email" placeholder="Enter your email..." required />
+            <.input field={f[:password]} type="password" label="Password" placeholder="Enter your password..." required />
+  
+            <:actions>
+              <.button class="w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700"
+                phx-disable-with="Logging in...">
+                Log in
+              </.button>
+            </:actions>
+          </.simple_form>
+  
+          <!-- Links below -->
+          <div class="text-center text-sm">
+            <.link href={~p"/users/reset_password"} class="text-red-600 hover:underline">Forgot your password?</.link>
+          </div>
+  
+          <div class="text-center text-xs text-gray-500">
+            By continuing with Google, or Email, you agree to our
+            <.link href="/terms" class="underline">Terms of Service</.link>
+            and
+            <.link href="/privacy" class="underline">Privacy Policy</.link>.
+          </div>
+  
+          <div class="text-center text-sm">
+            Don’t have an account?
+            <.link navigate={~p"/users/register"} class="text-red-600 font-semibold hover:underline">
+              Sign up
+            </.link>
+          </div>
+    </div>
+  </div>
