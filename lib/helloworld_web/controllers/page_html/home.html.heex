@@ -21,18 +21,18 @@
   <div class="flex h-screen">
 
     <!-- Mobile overlay -->
-    <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 z-30 bg-black bg-opacity-40 md:hidden">
+    <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 z-30 bg-red bg-opacity-100 md:hidden">
     </div>
 
     <!-- Sidebar -->
     <div x-bind:class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-      class="fixed inset-y-0 left-0 z-40 w-64 bg-[#faf9f9] border-r border-gray-200 p-4 transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0 md:block">
+      class="fixed inset-y-0 left-0 z-50 w-90 bg-orange-200 border-r border-gray-200 p-4 transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0 md:block">
 
       <!-- User Dropdown -->
       <div x-data="{ open: false }" class="relative mb-6">
         <button @click="open = !open"
           class="flex items-center px-2 py-1 rounded hover:bg-gray-200 w-full overflow-hidden">
-          <div class="w-3 h-3 rounded-full bg-green-500 mr-2 shrink-0"></div>
+          <div class="w-3 h-3 rounded-full bg-black-500 mr-2 shrink-0"></div>
           <div class="flex-1 truncate text-sm" title="user@email.com">
             {@current_user.email}
           </div>
@@ -45,12 +45,12 @@
         <div x-show="open" x-cloak class="absolute mt-2 w-40 bg-white border rounded shadow z-10">
           <ul>
             <li>
-              <.link href={~p"/users/settings"} class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              <.link href={~p"/users/settings"} class="w-fit px-2 py-2 hover:bg-blue-100 cursor-pointer">
                 Settings
               </.link>
             </li>
             <li>
-              <.link href={~p"/users/log_out"} method="delete" class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              <.link href={~p"/users/log_out"} method="delete" class=" w-fit px-2 py-2 hover:bg-blue-100 cursor-pointer">
                 Log out
               </.link>
             </li>
@@ -61,11 +61,11 @@
       <!-- Sidebar content -->
       <div class="space-y-4">
         <button>
-          <.link id="add-task-button" class="text-red-600 font-semibold hover:underline">+ Add task </.link>
+          <.link id="add-task-button" class="text-black-500 font-bold hover:underline">+ Add task </.link>
         </button>
-        <a class="block text-gray-700 hover:text-black">Inbox</a>
-        <a class="block text-gray-700 hover:text-black font-semibold">Today</a>
-        <a class="block text-gray-700 hover:text-black">Upcoming</a>
+        <a class="block text-black-500 hover:text-black  font-bold">Inbox</a>
+        <a class="block text-black-500 hover:text-black  font-bold">Today</a>
+        <a class="block text-black-500 hover:text-black  font-bold">UpComing</a>
       </div>
     </div>
 
@@ -79,7 +79,7 @@
 
             <!-- Title -->
             <.input field={f[:title]} type="text" label="Title"
-              class="w-full text-lg font-medium text-gray-900 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+              class="w-full text-lg font-semibold text- border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
               placeholder="e.g., Schedule review by Mar 15 at 11am" required />
 
             <!-- Description -->
@@ -130,7 +130,7 @@
 
 
 
-      <h2 class="text-xl font-bold mb-4">Today's Tasks</h2>
+      <h2 class="text-xl font-bold mb-4"> Tasks </h2>
 
       <ul class="space-y-4">
         <%= for task <- @tasks do %>
