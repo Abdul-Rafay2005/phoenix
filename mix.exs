@@ -32,7 +32,7 @@ defmodule Helloworld.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-     {:pbkdf2_elixir, "~> 1.0"},
+      {:pbkdf2_elixir, "~> 2.0"},
       {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.10"},

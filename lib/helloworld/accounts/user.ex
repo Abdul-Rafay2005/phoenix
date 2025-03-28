@@ -22,7 +22,7 @@ defmodule Helloworld.Accounts.User do
   defp validate_email(changeset, opts) do
     changeset
     |> validate_required([:email])
-    |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
+    |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must contain '@' and no spaces")
     |> validate_length(:email, max: 160)
     |> maybe_validate_unique_email(opts)
   end
@@ -41,7 +41,7 @@ defmodule Helloworld.Accounts.User do
     if hash_password? && password && changeset.valid? do
       changeset
       |> validate_length(:password, max: 72, count: :bytes)
-      |> put_change(:hashed_password, PBKDF2.hash_pwd_salt(password))  # Changed to PBKDF2
+      |> put_change(:hashed_password, Pbkdf2.hash_pwd_salt(password))  # Corrected module name
       |> delete_change(:password)
     else
       changeset
@@ -82,11 +82,11 @@ defmodule Helloworld.Accounts.User do
 
   def valid_password?(%Helloworld.Accounts.User{hashed_password: hashed_password}, password)
       when is_binary(hashed_password) and byte_size(password) > 0 do
-    PBKDF2.verify_pass(password, hashed_password)  # Changed to PBKDF2
+    Pbkdf2.verify_pass(password, hashed_password)  # Corrected module name
   end
 
   def valid_password?(_, _) do
-    PBKDF2.no_user_verify()  # Changed to PBKDF2
+    Pbkdf2.no_user_verify()  # Corrected module name
     false
   end
 
