@@ -68,79 +68,80 @@
         <a class="block text-black-500 hover:text-black  font-bold">UpComing</a>
       </div>
     </div>
-
-    <!-- Main content -->
+ 
     <main class="flex-1 p-6 overflow-y-auto">
 
-      <div id="task-modal"
-        class="hidden fixed inset-0 z-50 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center">
-        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-xl">
+      <div id="task-modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-lg flex items-center justify-center">
+        <div class="bg-gray-100 p-10 rounded-2xl shadow-3xl w-full max-w-lg border border-gray-300">
+    
           <.simple_form :let={f} for={@conn.params["task"]} as={:task} action={~p"/tasks"} class="space-y-6">
-
+    
             <!-- Title -->
-            <.input field={f[:title]} type="text" label="Title"
-              class="w-full text-lg font-semibold text- border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
-              placeholder="e.g., Schedule review by Mar 15 at 11am" required />
-
+            <.input field={f[:title]} type="text" label="Task Title"
+              class="w-full text-lg font-semibold text-gray-800 border border-gray-400 rounded-xl px-5 py-3 focus:ring-4 focus:ring-blue-500 focus:outline-none placeholder-gray-500 transition"
+              placeholder="e.g., Workout Plan" required />
+    
             <!-- Description -->
-            <.input field={f[:description]} type="text" label="Description"
-              class="w-full text-gray-700 text-sm border border-gray-300 rounded-md px-4 py-2 resize-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
-              placeholder="Description" />
-
+            <.input field={f[:description]} type="text" label="Task Description"
+              class="w-full text-gray-700 text-base border border-gray-400 rounded-xl px-5 py-3 resize-none focus:ring-4 focus:ring-blue-500 focus:outline-none placeholder-gray-500 transition"
+              placeholder="Brief task details" />
+    
             <!-- Tags: Due Date + Priority -->
             <div class="flex flex-wrap gap-4">
+              
               <!-- Due Date -->
               <div class="flex-1">
-                <label class="text-sm font-medium text-gray-700 mb-1 block">Due Date</label>
+                <label class="text-sm font-semibold text-gray-700 mb-1 block">Due Date</label>
                 <input type="date" name="task[due_date]"
-                  class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required />
+                  class="w-full border border-gray-400 rounded-xl px-4 py-2 text-sm focus:ring-4 focus:ring-blue-500 focus:outline-none transition" required />
               </div>
-
+    
               <!-- Priority -->
               <div class="flex-1">
-                <label class="text-sm font-medium text-gray-700 mb-1 block">Priority</label>
+                <label class="text-sm font-semibold text-gray-700 mb-1 block">Priority</label>
                 <.input field={f[:priority]} type="select"
-                  class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  options={[ {"Priority 1", "1" }, {"Priority 2", "2" }, {"Priority 3", "3" }, {"Priority 4", "4" }
-                  ]} />
+                  class="w-full border border-gray-400 rounded-xl px-4 py-2 text-sm focus:ring-4 focus:ring-blue-500 focus:outline-none transition"
+                  options={[ {"Urgent", "1" }, {"High", "2" }, {"Medium", "3" }, {"Low", "4" } ]} />
               </div>
             </div>
-
+    
             <!-- Footer -->
-            <div class="flex items-center justify-between pt-6 border-t border-gray-200">
+            <div class="flex items-center justify-between pt-6 border-t border-gray-300">
               <!-- Cancel Button -->
               <.button id="cancel-task" type="button"
-                class="bg-gray-100 text-gray-800 px-5 py-2 rounded-md hover:bg-gray-200 transition">
+                class="bg-red-500 text-white px-6 py-2 rounded-xl hover:bg-red-600 transition duration-200">
                 Cancel
               </.button>
-
+    
               <!-- Save Button -->
-              <.button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md transition"
+              <.button class="bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white px-6 py-2 rounded-xl shadow-md transition duration-300 transform hover:scale-105"
                 phx-disable-with="Saving...">
-                Add task
+                Save Task
               </.button>
             </div>
-
+    
           </.simple_form>
         </div>
       </div>
+    
+    
+    
 
 
 
 
 
-      <h2 class="text-xl font-bold mb-4"> Tasks </h2>
+      <h2 class="text-2xl font-bold mb-4">  MY TASKS </h2>
 
       <ul class="space-y-4">
         <%= for task <- @tasks do %>
-          <li class="flex items-start justify-between p-4 border rounded-md shadow-sm">
+          <li class="flex items-start justify-between p-1 border rounded-full shadow-sm">
             <!-- Left: Checkbox + Title + Description -->
             <div class="flex items-start space-x-3">
               <!-- Form for checkbox toggle -->
               <.form for={%{}} as={:task} method="put" action={~p"/tasks/#{task.id}/toggle_complete"} class="mt-1">
                 <button type="submit" class={ "w-5 h-5 rounded-full border-2 transition-all duration-200 " <>
-                  if task.completed, do: "bg-green-500 border-green-500", else: "border-gray-400 hover:border-gray-600"
+                  if task.completed, do: "bg-orange-300 border-orange-300", else: "border-orange-300 hover:border-orange-300"
                   }>
                 </button>
               </.form>
@@ -150,7 +151,7 @@
 
               <!-- Title + description -->
               <div>
-                <p class={"text-base font-medium " <> if task.completed, do: " line-through text-gray-500", else: "" }>
+                <p class={"text-base font-medium " <> if task.completed, do: " line-through text-black-500", else: "" }>
                   <%= task.title %>
                 </p>
                 <p class="text-sm text-gray-500">
@@ -160,11 +161,11 @@
             </div>
 
             <!-- Right: Due Date & Priority -->
-            <div class="text-right text-sm text-gray-600">
-              <p><strong>Due:</strong>
+            <div class="text-right text-medium text-black-500">
+              <p><strong>Due Date:-</strong>
                 <%= task.due_date %>
               </p>
-              <p><strong>Priority:</strong>
+              <p><strong>Priority:-</strong>
                 <%= task.priority %>
               </p>
             </div>
