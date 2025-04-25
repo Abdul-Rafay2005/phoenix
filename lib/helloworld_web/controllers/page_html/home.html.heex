@@ -6,35 +6,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
 </head>
 
-<body class="bg-[#D2B48C] text-black">
-
+<body class="bg-[#D2B48C] text-black antialiased transition-all duration-300 ease-in-out">
 
   <!-- Mobile header -->
   <header class="md:hidden flex items-center justify-between p-4 border-b">
-    <button @click="sidebarOpen = true" class="text-black">
-      ☰
-    </button>
+    <button @click="sidebarOpen = true" class="text-black">☰</button>
   </header>
 
   <div class="flex h-screen">
 
     <!-- Mobile overlay -->
-    <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 z-30 bg-red bg-opacity-100 md:hidden">
-    </div>
+    <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 z-30 bg-black bg-opacity-50 md:hidden"></div>
 
     <!-- Sidebar -->
     <div x-bind:class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-      class="fixed inset-y-0 left-0 z-50 w-90 bg-orange-200 border-r border-gray-200 p-4 transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0 md:block">
+      class="fixed inset-y-0 left-0 z-50 w-72 bg-white border-r shadow-lg p-6 transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0 md:block rounded-tr-3xl rounded-br-3xl">
 
       <!-- User Dropdown -->
-      <div x-data="{ open: false }" class="relative mb-6">
+      <div x-data="{ open: false }" class="relative mb-8">
         <button @click="open = !open"
-          class="flex items-center px-2 py-1 rounded hover:bg-gray-200 w-full overflow-hidden">
-          <div class="w-3 h-3 rounded-full bg-black-500 mr-2 shrink-0"></div>
-          <div class="flex-1 truncate text-sm" title="user@email.com">
-            {@current_user.email}
+          class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 w-full text-left transition">
+          <div class="w-4 h-4 rounded-full bg-green-500 mr-3 shrink-0"></div>
+          <div class="flex-1 truncate text-sm font-medium" title="user@email.com">
+            👤 {@current_user.email}
           </div>
           <svg class="w-4 h-4 text-gray-500 ml-2 shrink-0" fill="none" stroke="currentColor" stroke-width="2"
             viewBox="0 0 24 24">
@@ -42,103 +44,87 @@
           </svg>
         </button>
 
-        <div x-show="open" x-cloak class="absolute mt-2 w-40 bg-white border rounded shadow z-10">
-          <ul>
+        <div x-show="open" x-cloak class="absolute mt-2 w-44 bg-white border border-gray-200 rounded-xl shadow-lg z-10">
+          <ul class="text-sm text-gray-700">
             <li>
-              <.link href={~p"/users/settings"} class="w-fit px-2 py-2 hover:bg-blue-100 cursor-pointer">
-                Settings
-              </.link>
+              <.link href={~p"/users/settings"} class="block px-4 py-2 hover:bg-blue-100 rounded-t-xl">⚙️ Settings</.link>
             </li>
             <li>
-              <.link href={~p"/users/log_out"} method="delete" class=" w-fit px-2 py-2 hover:bg-blue-100 cursor-pointer">
-                Log out
-              </.link>
+              <.link href={~p"/users/log_out"} method="delete" class="block px-4 py-2 hover:bg-blue-100 rounded-b-xl">🚪 Log out</.link>
             </li>
           </ul>
         </div>
       </div>
 
       <!-- Sidebar content -->
-      <div class="space-y-4">
-        <button>
-          <.link id="add-task-button" class="text-black-500 font-bold hover:underline">+ Add task </.link>
+      <div class="space-y-5 text-sm">
+        <button class="w-full text-left">
+          <.link id="add-task-button"
+            class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-300 to-yellow-400 text-black rounded-xl font-semibold hover:scale-105 transition">
+            ➕ Add task
+          </.link>
         </button>
-        <a class="block text-black-500 hover:text-black  font-bold">Inbox</a>
-        <a class="block text-black-500 hover:text-black  font-bold">Today</a>
-        <a class="block text-black-500 hover:text-black  font-bold">UpComing</a>
+        <a class="block px-4 py-2 rounded-xl hover:bg-gray-100 font-medium text-gray-700 transition">📥 Inbox</a>
+        <a class="block px-4 py-2 rounded-xl hover:bg-gray-100 font-medium text-gray-700 transition">📅 Today</a>
+        <a class="block px-4 py-2 rounded-xl hover:bg-gray-100 font-medium text-gray-700 transition">🔜 Upcoming</a>
       </div>
     </div>
- 
+
     <main class="flex-1 p-6 overflow-y-auto">
 
       <div id="task-modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-lg flex items-center justify-center">
         <div class="bg-gray-100 p-10 rounded-2xl shadow-3xl w-full max-w-lg border border-gray-300">
-    
+
           <.simple_form :let={f} for={@conn.params["task"]} as={:task} action={~p"/tasks"} class="space-y-6">
-    
+
             <!-- Title -->
             <.input field={f[:title]} type="text" label="Task Title"
               class="w-full text-lg font-semibold text-gray-800 border border-gray-400 rounded-xl px-5 py-3 focus:ring-4 focus:ring-blue-500 focus:outline-none placeholder-gray-500 transition"
               placeholder="e.g., Workout Plan" required />
-    
+
             <!-- Description -->
             <.input field={f[:description]} type="text" label="Task Description"
               class="w-full text-gray-700 text-base border border-gray-400 rounded-xl px-5 py-3 resize-none focus:ring-4 focus:ring-blue-500 focus:outline-none placeholder-gray-500 transition"
               placeholder="Brief task details" />
-    
+
             <!-- Tags: Due Date + Priority -->
             <div class="flex flex-wrap gap-4">
-              
-              <!-- Due Date -->
               <div class="flex-1">
                 <label class="text-sm font-semibold text-gray-700 mb-1 block">Due Date</label>
                 <input type="date" name="task[due_date]"
                   class="w-full border border-gray-400 rounded-xl px-4 py-2 text-sm focus:ring-4 focus:ring-blue-500 focus:outline-none transition" required />
               </div>
-    
-              <!-- Priority -->
+
               <div class="flex-1">
                 <label class="text-sm font-semibold text-gray-700 mb-1 block">Priority</label>
                 <.input field={f[:priority]} type="select"
                   class="w-full border border-gray-400 rounded-xl px-4 py-2 text-sm focus:ring-4 focus:ring-blue-500 focus:outline-none transition"
-                  options={[ {"Urgent", "1" }, {"High", "2" }, {"Medium", "3" }, {"Low", "4" } ]} />
+                  options={[ {"Priority 1", "1" }, {"Priority 2", "2" }, {"Priority 3", "3" }, {"Priority", "4" } ]} />
               </div>
             </div>
-    
+
             <!-- Footer -->
             <div class="flex items-center justify-between pt-6 border-t border-gray-300">
-              <!-- Cancel Button -->
               <.button id="cancel-task" type="button"
                 class="bg-red-500 text-white px-6 py-2 rounded-xl hover:bg-red-600 transition duration-200">
                 Cancel
               </.button>
-    
-              <!-- Save Button -->
+
               <.button class="bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white px-6 py-2 rounded-xl shadow-md transition duration-300 transform hover:scale-105"
                 phx-disable-with="Saving...">
                 Save Task
               </.button>
             </div>
-    
           </.simple_form>
         </div>
       </div>
-    
-    
-    
 
-
-
-
-
-      <h2 class="text-2xl font-bold mb-4">  MY TASKS </h2>
+      <h2 class="text-2xl font-bold mb-4">📝 MY TASKS</h2>
 
       <ul class="space-y-4">
         <%= for task <- @tasks do %>
-          <li class="flex items-start justify-between p-1 border rounded-full shadow-sm">
-            <!-- Left: Checkbox + Title + Description -->
+          <li class="flex items-start justify-between p-3 bg-white rounded-xl shadow-sm">
             <div class="flex items-start space-x-3">
-              <!-- Form for checkbox toggle -->
               <.form for={%{}} as={:task} method="put" action={~p"/tasks/#{task.id}/toggle_complete"} class="mt-1">
                 <button type="submit" class={ "w-5 h-5 rounded-full border-2 transition-all duration-200 " <>
                   if task.completed, do: "bg-orange-300 border-orange-300", else: "border-orange-300 hover:border-orange-300"
@@ -146,52 +132,39 @@
                 </button>
               </.form>
 
-
-
-
-              <!-- Title + description -->
               <div>
                 <p class={"text-base font-medium " <> if task.completed, do: " line-through text-black-500", else: "" }>
                   <%= task.title %>
                 </p>
-                <p class="text-sm text-gray-500">
-                  <%= task.description %>
-                </p>
+                <p class="text-sm text-gray-500"><%= task.description %></p>
               </div>
             </div>
 
-            <!-- Right: Due Date & Priority -->
-            <div class="text-right text-medium text-black-500">
-              <p><strong>Due Date:-</strong>
-                <%= task.due_date %>
-              </p>
-              <p><strong>Priority:-</strong>
-                <%= task.priority %>
-              </p>
+            <div class="text-right text-sm text-gray-700">
+              <p><strong>📅 Due:</strong> <%= task.due_date %></p>
+              <p><strong>⭐ Priority:</strong> <%= task.priority %></p>
             </div>
           </li>
-          <% end %>
+        <% end %>
       </ul>
-
     </main>
   </div>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const modal = document.getElementById("task-modal");
+      const openBtn = document.getElementById("add-task-button");
+      const cancelBtn = document.getElementById("cancel-task");
+
+      openBtn.addEventListener("click", () => {
+        modal.classList.remove("hidden");
+      });
+
+      cancelBtn.addEventListener("click", () => {
+        modal.classList.add("hidden");
+      });
+    });
+  </script>
 </body>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("task-modal");
-    const openBtn = document.getElementById("add-task-button");
-    const cancelBtn = document.getElementById("cancel-task");
-
-    openBtn.addEventListener("click", () => {
-      modal.classList.remove("hidden");
-    });
-
-    cancelBtn.addEventListener("click", () => {
-      modal.classList.add("hidden");
-    });
-  });
-</script>
-
 
 </html>
