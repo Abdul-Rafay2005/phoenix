@@ -1,20 +1,27 @@
----
-title: Phoenix
-description: A Phoenix app that connects to a PostgreSQL database
-tags:
-  - elixir
-  - phoenix
-  - postgresql
----
+To-Do List App
+This is a simple yet effective To-Do List application built with Elixir and the Phoenix Framework. It allows users to create, manage, and organize their tasks with a sleek and modern interface. The app provides features for adding tasks, marking them as completed, setting due dates, and prioritizing tasks.
 
-# Phoenix Starter Example
+Features
+Task Creation: Users can add tasks with a title and description.
 
-This is a [Phoenix](https://www.phoenixframework.org/) starter app that connects to a Postgres database on Railway.
+Task Completion: Tasks can be marked as completed, which visually strikes them through.
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/0LSBzw)
+Due Dates: Each task can have a due date for better organization.
 
-## ✨ Features
+Priority Levels: Tasks can be given priority levels to distinguish between high, medium, and low-priority tasks.
 
-- Elixir
-- Phoenix
-- Postgres
+Responsive Design: The interface is built to be responsive and looks great on both desktop and mobile devices.
+
+Sleek Modern UI: The design is clean, modern, and uses smooth transitions for an enhanced user experience.
+
+Tech Stack
+Elixir: The backend language for building concurrent and distributed systems.
+
+Phoenix Framework: A web development framework for building scalable and maintainable applications.
+
+Ecto: A powerful database wrapper and query generator used in the app.
+
+PostgreSQL: A robust and reliable relational database management system.
+
+TailwindCSS: A utility-first CSS framework used for styling the app with a modern and responsive design.
+
