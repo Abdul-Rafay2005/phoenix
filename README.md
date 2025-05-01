@@ -1,4 +1,4 @@
-here you can see its live 
+here you can see live 
 "todolistweb.up.railway.app"  just copy this from here and search to chrome 
 
 
